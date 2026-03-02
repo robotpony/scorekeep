@@ -1,6 +1,6 @@
 # Libraries
 
-Dependencies for the Scorekeep CLI (P0). Chosen for minimal footprint, TypeScript support, and no unnecessary abstraction.
+Dependencies for Scorekeep. Chosen for minimal footprint, TypeScript support, and no unnecessary abstraction.
 
 ## TOML Parsing — smol-toml
 
@@ -84,14 +84,65 @@ Test structure:
 
 Strict mode enabled. Target ES2022+ (Node 18+).
 
+## Web App — React + Vite + Tailwind (P1)
+
+### React + React DOM
+
+**Packages**: `react`, `react-dom`
+
+The UI framework. React's component model works well for the polymorphic score entry UI (different components per game type, same data flow). The ecosystem is mature and well-documented.
+
+Why not alternatives:
+- **Preact**: Smaller, but the size difference matters less in a local-first app.
+- **Svelte/Solid**: Good frameworks, but React has better library support for the patterns we need.
+- **Vanilla/Web Components**: Too much boilerplate for the interactive scoring UI in P2+.
+
+### React Router
+
+**Package**: `react-router-dom`
+
+Hash-based routing for the tab navigation. The app has 4 primary routes (Home, New Game, Score Sheet, Leaderboard). Hash routing works without a server, which suits the local-first model.
+
+Why not alternatives:
+- **TanStack Router**: More powerful (type-safe routes, file-based generation) but heavier setup for 4 routes.
+- **State-based**: Simpler, but loses browser back button, URL sharing, and bookmarkability.
+
+### Vite
+
+**Package**: `vite`, `@vitejs/plugin-react` (dev dependencies)
+
+Build tool and dev server. Already aligned with Vitest. Fast HMR, simple config, handles TypeScript and JSX out of the box.
+
+Why not alternatives:
+- **webpack**: More configuration, slower, no advantage for this project.
+- **esbuild direct**: Fast but no dev server or HMR without manual setup.
+- **Parcel**: Zero-config appeal, but Vite is already in the ecosystem via Vitest.
+
+### Tailwind CSS
+
+**Package**: `tailwindcss`, `@tailwindcss/vite` (dev dependencies)
+
+Utility-first CSS framework. Styles live in the markup, no separate stylesheet management. Good for mobile-first responsive design with breakpoint prefixes (`sm:`, `md:`, `lg:`).
+
+No component library on top. The app is small enough that hand-built components from Tailwind utilities are simpler than adopting shadcn/ui or Radix. If accessibility patterns become complex in P2, reconsider headless UI primitives.
+
+Why not alternatives:
+- **CSS Modules**: Fine for scoping, but more files to manage and no utility-class speed.
+- **styled-components/emotion**: Runtime CSS-in-JS adds bundle weight and complexity.
+- **Plain CSS**: Works, but responsive design and dark mode are verbose without utilities.
+
 ## Summary
 
-| Purpose | Package | Dev/Prod |
-|---------|---------|----------|
-| TOML parsing | smol-toml | prod |
-| Schema validation | zod | prod |
-| Terminal colour | chalk | prod |
-| Testing | vitest | dev |
-| TypeScript | typescript | dev |
+| Purpose | Package | Dev/Prod | Phase |
+|---------|---------|----------|-------|
+| TOML parsing | smol-toml | prod | P0 |
+| Schema validation | zod | prod | P0 |
+| Terminal colour | chalk | prod | P0 |
+| UI framework | react, react-dom | prod | P1 |
+| Routing | react-router-dom | prod | P1 |
+| Build tool | vite, @vitejs/plugin-react | dev | P1 |
+| Styling | tailwindcss, @tailwindcss/vite | dev | P1 |
+| Testing | vitest | dev | P0 |
+| TypeScript | typescript | dev | P0 |
 
-Total production dependencies: 3. No framework, no build tool beyond TypeScript for P0.
+Production dependencies: 6 (3 CLI, 3 web). Dev dependencies: 6.

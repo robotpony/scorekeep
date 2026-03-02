@@ -487,6 +487,45 @@ Example output for dice-5:
 | Four 1s | 1,050 |
 | Five 1s | 1,100 |
 
+## Project Structure (P1+)
+
+Single project with shared code between CLI and web app:
+
+```
+src/
+  schemas/          # Zod schemas (shared)
+  types/            # TypeScript types (shared)
+  scoring/          # Scoring table generation (shared)
+  loader/           # TOML file loader (CLI + build script, uses Node fs)
+  cli/              # CLI entry point and commands
+  app/              # React web app (P1+)
+    layout/         # AppShell, TabBar
+    pages/          # HomePage, NewGamePage, ScoreSheetPage, LeaderboardPage
+    components/     # Shared UI components (GameCard, EmptyState)
+    main.tsx        # React root
+    app.css         # Tailwind imports
+  definitions/      # Generated game definitions (gitignored)
+scripts/
+  generate-definitions.ts  # TOML → TypeScript build script
+games/              # TOML game definition files
+```
+
+The shared modules (`schemas/`, `types/`, `scoring/`) are pure TypeScript with no Node or DOM dependencies. Both the CLI and web app import them directly.
+
+The `loader/` module uses Node `fs` and is used by the CLI at runtime and by the build script at build time. The web app does not import the loader; it imports the generated `definitions/games.ts` instead.
+
+### npm scripts
+
+| Script | Purpose |
+|--------|---------|
+| `dev` | Run CLI via tsx |
+| `build` | Compile CLI to dist/ |
+| `test` | Run all tests (CLI + web) |
+| `generate` | Compile TOMLs to src/definitions/games.ts |
+| `dev:web` | Generate + start Vite dev server |
+| `build:web` | Generate + Vite production build to dist-web/ |
+| `preview:web` | Preview production web build |
+
 ## Decisions
 
 | Decision | Rationale | Trade-off |
@@ -498,3 +537,8 @@ Example output for dice-5:
 | Zod for validation | Runtime validation + TypeScript inference from same schema | Adds a dependency |
 | CLI-first (P0) | Validate the data model and schemas before building UI | Delays the app users actually want |
 | `rules` optional for list games | List games may have no meaningful rules to display | Inconsistency in the base type |
+| Single project over monorepo | Shared code imported directly, no workspace tooling overhead | Web and CLI configs coexist in one package.json |
+| Generated module over Vite plugin | Simple build script, no bundler coupling, output is plain TypeScript | Manual regeneration needed after TOML changes (automated by npm scripts) |
+| React Router (hash) over state-based | Browser back button works, routes are bookmarkable, standard approach | Adds a dependency for what could be simple state switches |
+| Tailwind utilities over component library | App is small and custom, minimal dependencies | More manual styling work, no pre-built accessibility patterns |
+| Mobile-first layout | Primary use case is scoring on the road from a phone | Desktop experience is secondary |

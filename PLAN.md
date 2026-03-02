@@ -1,6 +1,6 @@
 # Plan
 
-Phased implementation plan for Scorekeep. P0 (CLI) is scoped in detail. Future phases are outlined for context but will be planned when we get there.
+Phased implementation plan for Scorekeep. P0 (CLI) and P1 (web scaffold) are scoped in detail. Future phases are outlined for context but will be planned when we get there.
 
 ## ~~P0 — CLI Tool~~ (complete)
 
@@ -79,15 +79,88 @@ A working CLI that:
 - Reports clear validation errors for broken TOMLs.
 - Has a test suite covering schemas, loading, scoring, and CLI output.
 
+## P1 — Web App Scaffold
+
+Goal: Build the web app shell with navigation, game list, and designed empty states for all tabs. Proves the TOML-to-web pipeline works and establishes the mobile-first layout.
+
+### Key decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Project structure | Single project, web in `src/app/` | Shared code (schemas, types, scoring) imported directly. No workspace overhead. |
+| TOML pipeline | Generated module (`src/definitions/games.ts`) | Build script reads TOMLs, validates, writes typed exports. No plugin magic. |
+| Routing | React Router (hash-based) | Works for local-first app with no server. Standard, lightweight. |
+| Styling | Tailwind CSS utilities only | No component library. App is small and custom. Minimal dependencies. |
+| Layout | Mobile-first, bottom tab bar | Primary use case is on-the-road scoring from a phone. |
+| npm scripts | Namespaced (`dev:web`, `build:web`) | CLI scripts unchanged. `npm test` runs everything. |
+| Generated code | Gitignored | Source of truth is `games/*.toml`. Generated file is a build artifact. |
+
+### Phase 1.1: Web stack setup + TOML build script
+
+1. Add dependencies: `react`, `react-dom`, `react-router-dom`.
+2. Add dev dependencies: `@types/react`, `@types/react-dom`, `@vitejs/plugin-react`, `tailwindcss`, `@tailwindcss/vite`.
+3. Create `vite.config.ts` with React plugin, Tailwind plugin, and output to `dist-web/`.
+4. Create `tsconfig.web.json` extending base config (add `jsx: react-jsx`, `module: ESNext`).
+5. Create `index.html` entry point and `src/app/main.tsx` (React root).
+6. Create `src/app/app.css` with Tailwind imports.
+7. Create `scripts/generate-definitions.ts`:
+   - Reads `games/*.toml`, validates with existing schemas.
+   - Writes `src/definitions/games.ts` with typed exports.
+   - Exports: `games` (Record), `gameList` (sorted array), `gameIds` (string[]).
+8. Add `src/definitions/` to `.gitignore`.
+9. Add npm scripts: `generate`, `dev:web` (generate + vite), `build:web` (generate + vite build), `preview:web`.
+10. Verify: dev server starts, shows a hello-world page, hot reload works.
+11. Tests: generate script produces valid TypeScript with all 4 games.
+
+### Phase 1.2: App shell and routing
+
+1. Create `src/app/layout/AppShell.tsx` — outer layout with content area + tab bar.
+2. Create `src/app/layout/TabBar.tsx` — bottom navigation bar.
+   - 4 tabs: Home, New Game, Score Sheet, Leaderboard.
+   - Simple SVG icons (inline, no icon library).
+   - Active tab highlighted.
+   - Responsive: bottom bar on mobile, top bar on `md:` and above.
+3. Set up `HashRouter` with 4 routes: `/`, `/new`, `/score`, `/leaderboard`.
+4. Each route wrapped in `AppShell` layout.
+5. Tests: tab bar renders, navigation between routes works, active state matches route.
+
+### Phase 1.3: Home page with game cards
+
+1. Create `src/app/pages/HomePage.tsx`.
+2. Create `src/app/components/GameCard.tsx` — card showing game name, description, type badge.
+   - Type badges: "Dice", "Card", "List" with distinct colours.
+   - Cards are tappable (link to `/new?game=<id>` for future use, non-functional now).
+3. Game list sourced from generated `gameList`.
+4. Responsive grid: 1 column on mobile, 2 on `sm:`, 3 on `lg:`.
+5. Tests: renders all 4 games, displays names and descriptions, type badges correct.
+
+### Phase 1.4: Stub pages with designed empty states
+
+1. **New Game** (`/new`): Header "Start a new game", game list (reuse `GameCard`), "Play" buttons (disabled, non-functional). Note: "Player setup coming soon."
+2. **Score Sheet** (`/score`): Centered empty state — icon, "No active game" heading, "Start a new game" link to `/new`.
+3. **Leaderboard** (`/leaderboard`): Centered empty state — icon, "No games played yet" heading, "Play your first game" link to `/new`.
+4. Tests: each page renders its empty state content and links.
+
+### Phase 1.5: Polish
+
+1. Colour scheme: define palette in Tailwind config (neutral base, accent colour for interactive elements).
+2. Dark mode: `prefers-color-scheme` via Tailwind `dark:` classes.
+3. Error boundary at app root with fallback UI.
+4. Accessible: semantic HTML (`nav`, `main`), focus-visible states, ARIA labels on tab bar.
+5. Responsive verification: test at 375px (phone), 768px (tablet), 1024px (desktop).
+6. Run all tests (CLI + web), fix gaps.
+7. Update CHANGELOG, README (add web section), bump version.
+
+### P1 deliverable
+
+A working web app that:
+- Loads game definitions compiled from TOML at build time.
+- Renders a mobile-first navigation shell with 4 tabs.
+- Shows a game list on the home page with type-appropriate cards.
+- Displays designed empty states for New Game, Score Sheet, and Leaderboard.
+- Has a test suite covering the build pipeline, navigation, and page rendering.
+
 ## Future Phases (outlined, not planned)
-
-### P1 — Web app scaffold
-
-- Vite + React + TypeScript project setup.
-- TOML-to-TypeScript build plugin (replaces CLI loader with build-time compilation).
-- Tailwind CSS setup.
-- Tab-based navigation shell (Home, New Game, Score Sheet, Leaderboard).
-- Home page with game list.
 
 ### P2 — Score entry
 

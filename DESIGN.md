@@ -221,3 +221,194 @@ Zod validation errors are mapped to TOML-style dotted paths. Multiple errors per
 - Persistence (no localStorage/IndexedDB)
 - Player management
 - Web UI
+
+---
+
+# Design (Web — P1)
+
+The web app is a mobile-first React SPA that renders game definitions compiled from TOML at build time. P1 establishes the navigation shell and game list. Score entry, persistence, and player management come in later phases.
+
+## Layout
+
+### Mobile (< 768px)
+
+```
+┌─────────────────────┐
+│  Scorekeep      [≡] │  ← top bar (app name, optional menu)
+├─────────────────────┤
+│                     │
+│     Page content    │  ← scrollable content area
+│                     │
+│                     │
+├─────────────────────┤
+│ 🏠  ➕  📋  🏆  │  ← bottom tab bar (fixed)
+│ Home New  Score Lead│
+└─────────────────────┘
+```
+
+Bottom tab bar is fixed. Content area scrolls independently. Active tab is highlighted with accent colour.
+
+### Tablet / Desktop (≥ 768px)
+
+```
+┌─────────────────────────────────────┐
+│  Scorekeep    Home  New  Score  Lead│  ← top navigation bar
+├─────────────────────────────────────┤
+│                                     │
+│           Page content              │  ← wider content area
+│                                     │
+└─────────────────────────────────────┘
+```
+
+Tabs move to the top bar on wider screens. No bottom bar. Content area is wider with max-width constraint for readability.
+
+## Pages
+
+### Home (`/`)
+
+The landing page. Shows all available games as cards.
+
+```
+┌─────────────────────┐
+│  Games              │
+│                     │
+│  ┌─────────────────┐│
+│  │ 🎲 Dice 5      ││
+│  │ Roll five dice, ││
+│  │ score points... ││
+│  └─────────────────┘│
+│  ┌─────────────────┐│
+│  │ 🎲 Yahtzee     ││
+│  │ Roll 5 dice,   ││
+│  │ fill 13 cats...││
+│  └─────────────────┘│
+│  ┌─────────────────┐│
+│  │ 🃏 Golf 4      ││
+│  │ Four-card golf. ││
+│  │ Play 9 holes...││
+│  └─────────────────┘│
+│  ┌─────────────────┐│
+│  │ 📝 Simple      ││
+│  │ Track scores    ││
+│  │ round by round. ││
+│  └─────────────────┘│
+└─────────────────────┘
+```
+
+Each card shows:
+- **Type badge**: Dice, Card, or List with a colour.
+- **Game name**: Bold.
+- **Description**: One line, truncated if needed.
+
+Cards link to `/new?game=<id>` (non-functional in P1). Responsive grid: 1 column on mobile, 2 on tablet, 3 on desktop.
+
+### New Game (`/new`)
+
+Shows game selection with "Play" buttons. Non-functional in P1.
+
+```
+┌─────────────────────┐
+│  Start a new game   │
+│                     │
+│  ┌────────────┬────┐│
+│  │ Dice 5     │Play││
+│  ├────────────┼────┤│
+│  │ Yahtzee    │Play││
+│  ├────────────┼────┤│
+│  │ Golf 4     │Play││
+│  ├────────────┼────┤│
+│  │ Simple     │Play││
+│  └────────────┴────┘│
+│                     │
+│  Player setup       │
+│  coming in a future │
+│  update.            │
+└─────────────────────┘
+```
+
+### Score Sheet (`/score`)
+
+Empty state in P1. Will show active game scorecard in P2.
+
+```
+┌─────────────────────┐
+│                     │
+│                     │
+│       [icon]        │
+│                     │
+│  No active game     │
+│                     │
+│  Start a new game → │
+│                     │
+│                     │
+└─────────────────────┘
+```
+
+### Leaderboard (`/leaderboard`)
+
+Empty state in P1. Will show stats in P4.
+
+```
+┌─────────────────────┐
+│                     │
+│                     │
+│       [icon]        │
+│                     │
+│  No games played    │
+│  yet                │
+│                     │
+│  Play your first    │
+│  game →             │
+│                     │
+└─────────────────────┘
+```
+
+## Visual Design
+
+### Colour
+
+Minimal palette. Defined in Tailwind config.
+
+- **Background**: White (light), slate-900 (dark).
+- **Text**: Slate-900 (light), slate-100 (dark).
+- **Accent**: A single accent colour for active tabs, buttons, and links.
+- **Type badges**: Distinct muted colours per game type (e.g., blue for dice, green for card, amber for list).
+
+### Dark mode
+
+Supported via `prefers-color-scheme`. Tailwind `dark:` classes. No manual toggle in P1.
+
+### Typography
+
+System font stack. No custom fonts. Sizes follow Tailwind defaults.
+
+## TOML → Web Pipeline
+
+```
+games/*.toml
+    ↓  scripts/generate-definitions.ts
+    ↓  parse (smol-toml) + validate (zod schemas)
+src/definitions/games.ts  (generated, gitignored)
+    ↓  imported by
+src/app/  (React components)
+```
+
+The generated module exports:
+
+```typescript
+import type { GameDefinition } from '../types/game.js';
+
+export const games: Record<string, GameDefinition> = { ... };
+export const gameList: GameDefinition[] = [ ... ]; // sorted by name
+export const gameIds: string[] = [ ... ];
+```
+
+The generate script reuses the existing loader (`src/loader/`) and schemas (`src/schemas/`). It runs before dev and build via npm scripts.
+
+## Non-goals (P1)
+
+- Score entry or game sessions (P2)
+- Player management (P3)
+- Leaderboard data (P4)
+- PWA / offline support (P5+)
+- Server-side rendering
