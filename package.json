@@ -1,0 +1,38 @@
+{
+  "name": "scorekeep",
+  "version": "0.2.0",
+  "description": "A score-tracking tool for card and dice games.",
+  "type": "module",
+  "bin": {
+    "scorekeep": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "scorekeeping",
+    "dice",
+    "cards",
+    "games",
+    "cli"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.3.0"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "smol-toml": "^1.6.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}

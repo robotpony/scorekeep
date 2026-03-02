@@ -1,30 +1,46 @@
-# Score keep
+# Scorekeep
 
-A simple iOS/macOS tool for keeping score, especially handy when playing cards or dice on the road.
+A score-tracking tool for card and dice games, built for use on the road.
+
+## CLI Usage
+
+```bash
+scorekeep list                  # List all available games
+scorekeep info <game-id>        # Show full game reference
+scorekeep validate [game-id]    # Validate game definition files
+scorekeep score-table <game-id> # Show scoring reference table
+```
+
+Options: `--help`, `--no-color`, `--json`
+
+## Development
+
+```bash
+npm install                     # Install dependencies
+npm run dev                     # Run CLI via tsx (dev mode)
+npm run dev -- list             # Run a specific command
+npm run build                   # Compile TypeScript to dist/
+npm test                        # Run tests
+npm run lint                    # Type-check without emitting
+```
 
 ## Games
 
-- dice games (dice)
-  - dice-5 (1000 starting, 10k win)
-- card games (golf)
-  - swoop (first out loses)
-  - villiage idiot (last man standing)
-  - golf 4x (lowest score wins)
-- other simple games that need scoring
-  - vertical list, game name, player names
+Game definitions live in `games/` as TOML files. Four game types are supported:
 
-## Features
+| Type | Scoring model | Games |
+|------|--------------|-------|
+| Cumulative dice | Rolling total, target to win | dice-5 |
+| Category dice | Fill categories, sum totals | yahtzee |
+| Card (hand-winner) | Per-hand winners, final tally | golf-4 |
+| List | Per-round scores, sum totals | list-simple |
 
-- Interactive scorecards for different game types with simple score entry, auto-math to see player progress, and rules per game
-- Definitions for games stored in simple TOML/Markdown files
-- View game rules (optionally)
-
+Adding a new game means adding a TOML file. See `ARCHITECTURE.md` for schema details.
 
 ## Phases
 
-- [P0] CLI-based tool for testing models, config, and game definition files
-- [P1] Game definition format (for the simplest games) and ability to print in the terminal
-- [P1] Game definition format (for golf-style games) and ability to print in the terminal
-- [P1] Game definition format, short cheet sheet (to remind players what the game is and how to play it)
+- **P0 (current)**: CLI tool for parsing, validating, and rendering game definitions
+- **P1**: Web app scaffold (Vite + React + TypeScript)
+- **P2+**: Score entry, player management, leaderboards
 
-Future phases will be added as we progress.
+See `PLAN.md` for the full roadmap.

@@ -1,0 +1,63 @@
+# Dice 5 — Five-dice cumulative scoring game
+
+[game]
+id = "dice-5"
+name = "Dice 5"
+type = "dice"
+description = "Roll five dice, score points, reach 10,000 to win."
+
+[players]
+min = 2
+max = 8
+
+[equipment]
+dice_count = 5
+dice_sides = 6
+
+[scoring]
+method = "cumulative"
+target = 10000
+entry_threshold = 1000
+increment = 50
+endgame = "immediate"
+
+[scoring.singles]
+1 = 100
+5 = 50
+
+[scoring.of_a_kind]
+min = 3
+multiplier = 100
+extra_die_bonus = 50
+
+[scoring.of_a_kind.overrides]
+1 = 1000
+
+[scorecard]
+layout = "running-total"
+entry = "accumulator"
+commit_label = "Bank"
+zero_label = "Farkle"
+
+[rules]
+turn_order = "Each player rolls one die. Lowest goes first."
+
+summary = """\
+Roll 5 dice. Set aside scoring dice, then re-roll or bank. \
+No scoring dice = lose unbanked points. \
+All 5 scoring = hot dice, roll again."""
+
+turn_flow = [
+  "Roll all 5 dice",
+  "Set aside at least one scoring die",
+  "Re-roll remaining dice or bank points",
+  "No scoring dice = lose all unbanked points",
+  "All 5 scoring = pick up all 5, keep rolling",
+]
+
+key_rules = [
+  "Must score 1,000+ in one turn to get on the board",
+  "Must set aside at least one scoring die each roll",
+  "All 5 dice scoring = hot dice, roll all 5 again",
+  "First player to 10,000 wins",
+]

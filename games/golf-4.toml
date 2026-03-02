@@ -1,0 +1,66 @@
+# Golf 4 — Four-card golf
+
+[game]
+id = "golf-4"
+name = "Golf 4"
+type = "card"
+description = "Four-card golf. Play 9 holes, most hand wins takes it."
+
+[players]
+min = 2
+max = 6
+
+[equipment]
+deck = "standard-52"
+cards_per_player = 4
+
+[scoring]
+rounds = 9
+
+[scoring.hand]
+winner = "lowest"
+tie = "carryover"
+
+[scoring.card_values]
+ace = 1
+jack = 11
+queen = 12
+king = 0
+# 2-10 are face value (implied for standard deck)
+
+[scoring.modifiers]
+pair = 0
+
+[scoring.final]
+metric = "hand-wins"
+lowest_cumulative_bonus = 2
+winner = "highest"
+
+[scorecard]
+layout = "golf-card"
+entry = "direct"
+mark_winner = true
+
+[rules]
+turn_order = "Dealer rotates each hand. Player left of dealer goes first."
+
+summary = """\
+4 cards dealt face down. Peek at 2 once. Draw and swap or \
+flip. Lowest hand wins the hole. After 9 holes, most hand \
+wins (+ bonus for lowest cumulative) takes it."""
+
+turn_flow = [
+  "Draw one card from draw pile or discard pile",
+  "Swap it with one of your face-down cards",
+  "Or discard it and flip one of your face-down cards",
+]
+
+key_rules = [
+  "Peek at 2 of your 4 cards once at the start",
+  "Kings are worth 0",
+  "Matching pairs score 0 (both cards)",
+  "Lowest hand score wins the hole",
+  "Tied hands carry the win to the next hole (skins)",
+  "After 9 holes: +2 for lowest cumulative score",
+  "Most hand wins (+ bonus) wins the game",
+]

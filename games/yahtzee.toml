@@ -1,0 +1,92 @@
+# Yahtzee — Five-dice category scoring game
+
+[game]
+id = "yahtzee"
+name = "Yahtzee"
+type = "dice"
+description = "Roll 5 dice, fill 13 categories. Highest total wins."
+
+[players]
+min = 1
+max = 6
+
+[equipment]
+dice_count = 5
+dice_sides = 6
+
+[scoring]
+method = "category-total"
+rounds = 13
+rolls_per_turn = 3
+winner = "highest"
+
+[scoring.upper]
+faces = [1, 2, 3, 4, 5, 6]
+bonus_threshold = 63
+bonus_value = 35
+
+[[scoring.lower]]
+name = "Three of a Kind"
+rule = "3+ matching: sum all dice"
+range = [0, 30]
+
+[[scoring.lower]]
+name = "Four of a Kind"
+rule = "4+ matching: sum all dice"
+range = [0, 30]
+
+[[scoring.lower]]
+name = "Full House"
+rule = "3 of one + 2 of another"
+score = 25
+
+[[scoring.lower]]
+name = "Small Straight"
+rule = "4 sequential dice"
+score = 30
+
+[[scoring.lower]]
+name = "Large Straight"
+rule = "5 sequential dice"
+score = 40
+
+[[scoring.lower]]
+name = "Yahtzee"
+rule = "5 of a kind"
+score = 50
+
+[[scoring.lower]]
+name = "Chance"
+rule = "Sum of all dice"
+range = [5, 30]
+
+[scoring.yahtzee_bonus]
+value = 100
+
+[scorecard]
+layout = "category-grid"
+entry = "category-select"
+
+[rules]
+turn_order = "Youngest player goes first."
+
+summary = """\
+Roll 5 dice up to 3 times per turn, keeping any between \
+rolls. Score in one unused category. Fill all 13 categories. \
+Highest total wins."""
+
+turn_flow = [
+  "Roll all 5 dice",
+  "Keep any dice, re-roll the rest (up to 2 more times)",
+  "Choose one unused category to score",
+  "Enter score (or 0 to scratch)",
+]
+
+key_rules = [
+  "3 rolls per turn, keep any dice between rolls",
+  "Each category used exactly once",
+  "Upper section 63+: 35-point bonus",
+  "Yahtzee bonus: 100 per additional Yahtzee",
+  "Scratch: enter 0 in any unused category",
+  "Highest total score wins",
+]

@@ -1,0 +1,18 @@
+# Simple Scores — Generic score tracker
+
+[game]
+id = "list-simple"
+name = "Simple Scores"
+type = "list"
+description = "Track scores round by round. Highest total wins."
+
+[players]
+min = 2
+max = 12
+
+[scoring]
+winner = "highest"
+
+[scorecard]
+layout = "list-vertical"
+entry = "direct"
