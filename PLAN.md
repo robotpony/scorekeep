@@ -24,7 +24,7 @@ Goal: Parse, validate, and render game definitions from the terminal. No interac
 5. Add npm scripts: `build`, `test`, `dev` (ts-node or tsx for development).
 6. Add a CLI entry point (`src/cli/index.ts`) that parses args and dispatches.
 
-### Phase 0.2: Types and schemas
+### ~~Phase 0.2: Types and schemas~~ (done)
 
 1. Define TypeScript interfaces in `src/types/game.ts` (from ARCHITECTURE.md TypeScript Types section).
 2. Define Zod schemas in `src/schemas/`:

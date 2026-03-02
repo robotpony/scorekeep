@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0
+
+- TOML file loader: `loadGame(filePath)` reads, parses, and validates a single game definition
+- Registry loader: `loadAllGames(gamesDir)` loads all `.toml` files, continues on errors
+- `LoadError` class with structured error phases (`read`, `parse`, `validate`) and detail messages
+- Utility functions: `defaultGamesDir()`, `gameFilePath()`
+- 16 loader tests (positive tests for all 4 games, error cases for missing files, malformed TOML, schema failures, unknown types, empty directories)
+
 ## 0.2.0
 
 - Zod schemas for all four game types: cumulative dice, category dice, card, list
