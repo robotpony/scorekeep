@@ -128,15 +128,40 @@ export function gameFilePath(gamesDir: string, gameId: string): string {
   return resolve(gamesDir, `${gameId}.toml`);
 }
 
+interface ZodIssue {
+  code?: string;
+  path?: (string | number)[];
+  message?: string;
+  expected?: string;
+  received?: string;
+  errors?: ZodIssue[][];
+}
+
+function formatIssueMessage(issue: ZodIssue): string {
+  // Union errors: extract expected values from nested branches
+  if (issue.code === 'invalid_union' && issue.errors) {
+    const expected = issue.errors
+      .flatMap((branch) => branch)
+      .filter((e) => e.code === 'invalid_value' || e.code === 'invalid_literal')
+      .map((e) => e.expected ?? e.message?.match(/"([^"]+)"/)?.[1])
+      .filter(Boolean);
+
+    if (expected.length > 0) {
+      const unique = [...new Set(expected)];
+      const quoted = unique.map((v) => `"${v}"`);
+      return `Expected ${quoted.join(' or ')}`;
+    }
+  }
+
+  return issue.message ?? 'Invalid';
+}
+
 function formatValidationErrors(error: Error): string[] {
   if ('issues' in error && Array.isArray((error as Record<string, unknown>).issues)) {
-    const issues = (error as Record<string, unknown>).issues as Array<{
-      path?: (string | number)[];
-      message?: string;
-    }>;
+    const issues = (error as Record<string, unknown>).issues as ZodIssue[];
     return issues.map((issue) => {
       const path = issue.path?.join('.') || '(root)';
-      return `${path}: ${issue.message ?? 'Invalid'}`;
+      return `${path}: ${formatIssueMessage(issue)}`;
     });
   }
   return [error.message];

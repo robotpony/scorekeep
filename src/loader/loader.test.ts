@@ -222,6 +222,161 @@ method = "cumulative"
   });
 });
 
+// --- Error message quality ---
+
+describe('validation error messages', () => {
+  it('shows expected values for enum/union fields', () => {
+    setupTmpDir();
+    try {
+      const filePath = resolve(TMP_DIR, 'bad-enum.toml');
+      writeFileSync(filePath, `
+[game]
+id = "test"
+name = "Test"
+type = "dice"
+description = "Testing union errors"
+
+[players]
+min = 2
+max = 8
+
+[scoring]
+method = "cumulative"
+target = 100
+entry_threshold = 50
+endgame = "bogus"
+winner = "highest"
+
+[scoring.singles]
+1 = 100
+5 = 50
+
+[scoring.of_a_kind]
+3 = "face_value_times"
+count_multiplier = 1
+
+[equipment]
+type = "dice"
+count = 5
+sides = 6
+
+[rules]
+turn_flow = ["Roll"]
+key_rules = ["Score"]
+
+[scorecard]
+layout = "running-total"
+entry = "accumulator"
+`);
+      try {
+        loadGame(filePath);
+        expect.fail('Should have thrown');
+      } catch (err) {
+        const loadErr = err as LoadError;
+        expect(loadErr.phase).toBe('validate');
+        const endgameErr = loadErr.details?.find((d) => d.includes('endgame'));
+        expect(endgameErr).toBeDefined();
+        expect(endgameErr).toContain('Expected');
+        expect(endgameErr).toContain('immediate');
+        expect(endgameErr).toContain('final-round');
+      }
+    } finally {
+      cleanTmpDir();
+    }
+  });
+
+  it('shows specific type errors for wrong field types', () => {
+    setupTmpDir();
+    try {
+      const filePath = resolve(TMP_DIR, 'bad-type.toml');
+      writeFileSync(filePath, `
+[game]
+id = "test"
+name = "Test"
+type = "dice"
+description = "Testing type errors"
+
+[players]
+min = 2
+max = 8
+
+[scoring]
+method = "cumulative"
+target = "not-a-number"
+entry_threshold = 50
+endgame = "immediate"
+winner = "highest"
+
+[scoring.singles]
+1 = 100
+5 = 50
+
+[scoring.of_a_kind]
+3 = "face_value_times"
+count_multiplier = 1
+
+[equipment]
+type = "dice"
+count = 5
+sides = 6
+
+[rules]
+turn_flow = ["Roll"]
+key_rules = ["Score"]
+
+[scorecard]
+layout = "running-total"
+entry = "accumulator"
+`);
+      try {
+        loadGame(filePath);
+        expect.fail('Should have thrown');
+      } catch (err) {
+        const loadErr = err as LoadError;
+        expect(loadErr.phase).toBe('validate');
+        const targetErr = loadErr.details?.find((d) => d.includes('target'));
+        expect(targetErr).toBeDefined();
+        expect(targetErr).toContain('expected number');
+      }
+    } finally {
+      cleanTmpDir();
+    }
+  });
+
+  it('shows path-qualified errors for missing nested fields', () => {
+    setupTmpDir();
+    try {
+      const filePath = resolve(TMP_DIR, 'missing-nested.toml');
+      writeFileSync(filePath, `
+[game]
+id = "test"
+name = "Test"
+type = "dice"
+description = "Testing missing fields"
+
+[players]
+min = 2
+max = 8
+
+[scoring]
+method = "cumulative"
+`);
+      try {
+        loadGame(filePath);
+        expect.fail('Should have thrown');
+      } catch (err) {
+        const loadErr = err as LoadError;
+        expect(loadErr.phase).toBe('validate');
+        // Errors should reference TOML paths like "equipment" or "scoring.target"
+        expect(loadErr.details!.some((d) => d.includes('equipment'))).toBe(true);
+        expect(loadErr.details!.some((d) => d.includes('scoring.'))).toBe(true);
+      }
+    } finally {
+      cleanTmpDir();
+    }
+  });
+});
+
 // --- Utility functions ---
 
 describe('utility functions', () => {

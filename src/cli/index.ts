@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { parseArgs } from 'node:util';
+import { configureColor } from './format.js';
 import { list } from './commands/list.js';
 import { info } from './commands/info.js';
 import { validate } from './commands/validate.js';
@@ -66,6 +67,8 @@ async function main(): Promise<void> {
   }
 
   const { command, args, options } = parsed;
+
+  configureColor(options.noColor);
 
   if (options.help || !command) {
     console.log(USAGE);

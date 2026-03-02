@@ -2,7 +2,7 @@
 
 Phased implementation plan for Scorekeep. P0 (CLI) is scoped in detail. Future phases are outlined for context but will be planned when we get there.
 
-## P0 — CLI Tool
+## ~~P0 — CLI Tool~~ (complete)
 
 Goal: Parse, validate, and render game definitions from the terminal. No interactive scoring, no persistence, no UI. This milestone proves the data model works before building anything visual.
 
@@ -36,7 +36,7 @@ Goal: Parse, validate, and render game definitions from the terminal. No interac
    - `index.ts` — Schema registry mapping `game.type` (and `scoring.method` for dice) to the right schema.
 3. Write validation tests: each existing TOML file should pass its schema. Write intentionally broken TOMLs as negative test cases.
 
-### Phase 0.3: TOML loader
+### ~~Phase 0.3: TOML loader~~ (done)
 
 1. Build a loader (`src/loader/index.ts`) that:
    - Reads a TOML file from disk.
@@ -47,7 +47,7 @@ Goal: Parse, validate, and render game definitions from the terminal. No interac
 2. Build a registry loader that reads all files from `games/` and returns a `Record<string, GameDefinition>`.
 3. Write tests for the loader: valid files load correctly, invalid files produce clear errors.
 
-### Phase 0.4: CLI commands
+### ~~Phase 0.4: CLI commands~~ (done)
 
 1. **`scorekeep list`** — Load all games, print id/name/description table.
 2. **`scorekeep validate [game-id]`** — Validate one or all games, print results with ✓/✗ markers.
@@ -57,14 +57,14 @@ Goal: Parse, validate, and render game definitions from the terminal. No interac
 6. Build a small table renderer for box-drawing output.
 7. Write snapshot tests for CLI output.
 
-### Phase 0.5: Scoring table generation
+### ~~Phase 0.5: Scoring table generation~~ (done, folded into 0.4)
 
 1. Implement scoring table computation for cumulative dice games (expand singles + of_a_kind rules into a display table).
 2. Implement scoring table computation for category dice games (upper faces with max scores, lower categories with score/range).
 3. Implement card value display for card games.
 4. Write tests for scoring table generation.
 
-### Phase 0.6: Polish
+### ~~Phase 0.6: Polish~~ (done)
 
 1. Error messages: ensure all validation errors reference TOML paths and are human-readable.
 2. Edge cases: empty `games/` directory, malformed TOML syntax, missing required fields, extra unknown fields.
