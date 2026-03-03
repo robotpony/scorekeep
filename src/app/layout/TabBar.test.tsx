@@ -82,17 +82,17 @@ describe('TabBar', () => {
     // Click New Game tab
     const newGameLinks = screen.getAllByText('New Game');
     await user.click(newGameLinks[0]);
-    expect(screen.getByText('Start a new game.')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Start a new game' })).toBeInTheDocument();
 
     // Click Score Sheet tab
     const scoreLinks = screen.getAllByText('Score Sheet');
     await user.click(scoreLinks[0]);
-    expect(screen.getByText('No active game.')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'No active game' })).toBeInTheDocument();
 
     // Click Leaderboard tab
     const lbLinks = screen.getAllByText('Leaderboard');
     await user.click(lbLinks[0]);
-    expect(screen.getByText('No games played yet.')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'No games played yet' })).toBeInTheDocument();
 
     // Click Home tab to go back
     const homeLinks = screen.getAllByText('Home');

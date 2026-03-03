@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0
+
+- Stub pages with designed empty states (Phase 1.5)
+- **New Game** page: game list with type badges and disabled "Play" buttons, "Player setup coming soon" note
+- **Score Sheet** page: centered empty state with clipboard icon, "No active game" heading, link to start a game
+- **Leaderboard** page: centered empty state with podium icon, "No games played yet" heading, link to start a game
+- 10 new tests: page headings, game list rendering, disabled buttons, descriptive text, navigation links (146 total across 10 suites)
+
 ## 0.9.0
 
 - Game detail page (Phase 1.4)

@@ -114,10 +114,10 @@ Goal: Build the web app shell with navigation, game list, game detail pages, and
 
 ### Phase 1.5: Stub pages with designed empty states
 
-- [ ] **New Game** (`/new`): header "Start a new game", game list with "Play" buttons (disabled), "Player setup coming soon" note
-- [ ] **Score Sheet** (`/score`): centered empty state with icon, "No active game" heading, link to `/new`
-- [ ] **Leaderboard** (`/leaderboard`): centered empty state with icon, "No games played yet" heading, link to `/new`
-- [ ] Tests: each page renders its empty state content and links
+- [x] **New Game** (`/new`): header "Start a new game", game list with "Play" buttons (disabled), "Player setup coming soon" note
+- [x] **Score Sheet** (`/score`): centered empty state with icon, "No active game" heading, link to `/new`
+- [x] **Leaderboard** (`/leaderboard`): centered empty state with icon, "No games played yet" heading, link to `/new`
+- [x] Tests: each page renders its empty state content and links
 
 ### Phase 1.6: Polish
 

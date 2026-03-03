@@ -122,7 +122,7 @@ npm run dev                     # Run CLI via tsx (dev mode)
 npm run dev -- list             # Run a specific command
 npm run dev -- info dice-5      # Show game info
 npm run build                   # Compile TypeScript to dist/
-npm test                        # Run all tests (136 across 9 suites)
+npm test                        # Run all tests (146 across 10 suites)
 npm run test:watch              # Run tests in watch mode
 npm run lint                    # Type-check without emitting
 ```
