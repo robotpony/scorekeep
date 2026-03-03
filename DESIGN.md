@@ -2,6 +2,19 @@
 
 This document covers the CLI interface for Scorekeep's first milestone. The CLI parses game definition TOMLs, validates them against schemas, and renders game information to the terminal. No interactive score tracking; this is a read-only tool for testing the data model.
 
+## Requirements
+
+- Can easily find and select a game from a list
+- Can view game rules and scoring reference before starting
+- Can easily keep score, especially on a phone or tablet
+- Can save games; current scores are always persisted
+- Remembers player names so you can repeat games with the same people
+- Games are defined in TOML files with structured schemas and human-readable rules
+- Supports 4 game types: cumulative dice (dice-5), category dice (yahtzee), card/hand-winner (golf-4), and list (list-simple)
+- Scoring interface should look like a scorecard for the game it's for (e.g., golf-style scoring, Yahtzee grid, running total for dice). The look/feel should be clear, easy to use, and feel like the game it's from
+- Works offline and on the road (PWA)
+
+
 ## Commands
 
 ### `scorekeep list`

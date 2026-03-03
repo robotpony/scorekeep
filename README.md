@@ -64,6 +64,32 @@ $ scorekeep validate
 
 **`scorekeep score-table <game-id>`** — Show scoring reference table only.
 
+```
+$ scorekeep score-table yahtzee
+
+  Yahtzee — Scoring Reference
+
+  Upper Section
+  ┌────────┬─────────────┐
+  │ Name   │       Range │
+  ├────────┼─────────────┤
+  │ Ones   │         0–5 │
+  │ Twos   │        0–10 │
+  │ ...    │         ... │
+  │ Bonus  │ 35 (if ≥63) │
+  └────────┴─────────────┘
+
+  Lower Section
+  ┌─────────────────┬───────┐
+  │ Name            │ Score │
+  ├─────────────────┼───────┤
+  │ Three of a Kind │  0–30 │
+  │ ...             │   ... │
+  │ Yahtzee         │    50 │
+  │ Chance          │  5–30 │
+  └─────────────────┴───────┘
+```
+
 ### Options
 
 | Flag | Effect |
@@ -80,8 +106,10 @@ All commands support `--json` for programmatic use.
 npm install                     # Install dependencies
 npm run dev                     # Run CLI via tsx (dev mode)
 npm run dev -- list             # Run a specific command
+npm run dev -- info dice-5      # Show game info
 npm run build                   # Compile TypeScript to dist/
-npm test                        # Run tests
+npm test                        # Run all tests (103 across 5 suites)
+npm run test:watch              # Run tests in watch mode
 npm run lint                    # Type-check without emitting
 ```
 
@@ -100,8 +128,8 @@ Adding a new game means adding a TOML file. See `ARCHITECTURE.md` for schema det
 
 ## Phases
 
-- **P0 (current)**: CLI tool for parsing, validating, and rendering game definitions
-- **P1**: Web app scaffold (Vite + React + TypeScript)
+- **P0 (complete)**: CLI tool for parsing, validating, and rendering game definitions
+- **P1 (next)**: Web app scaffold (Vite + React + Tailwind, mobile-first)
 - **P2+**: Score entry, player management, leaderboards
 
 See `PLAN.md` for the full roadmap.
