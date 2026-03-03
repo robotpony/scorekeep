@@ -100,6 +100,20 @@ $ scorekeep score-table yahtzee
 
 All commands support `--json` for programmatic use.
 
+## Web App
+
+The web app is a mobile-first React SPA with hash-based routing.
+
+```bash
+npm run dev:web                 # Generate definitions + start Vite dev server
+npm run build:web               # Generate definitions + production build
+npm run preview:web             # Preview production build
+```
+
+Routes: Home (`/`), New Game (`/new`), Score Sheet (`/score`), Leaderboard (`/leaderboard`), Game Detail (`/game/:id`).
+
+The home page displays all available games as cards with type badges (Dice, Card, List). Cards link to game detail pages. Responsive layout: bottom tab bar on mobile, top bar on medium screens and above.
+
 ## Development
 
 ```bash
@@ -108,7 +122,7 @@ npm run dev                     # Run CLI via tsx (dev mode)
 npm run dev -- list             # Run a specific command
 npm run dev -- info dice-5      # Show game info
 npm run build                   # Compile TypeScript to dist/
-npm test                        # Run all tests (103 across 5 suites)
+npm test                        # Run all tests (125 across 8 suites)
 npm run test:watch              # Run tests in watch mode
 npm run lint                    # Type-check without emitting
 ```
@@ -129,7 +143,7 @@ Adding a new game means adding a TOML file. See `ARCHITECTURE.md` for schema det
 ## Phases
 
 - **P0 (complete)**: CLI tool for parsing, validating, and rendering game definitions
-- **P1 (next)**: Web app scaffold (Vite + React + Tailwind, mobile-first)
+- **P1 (in progress)**: Web app scaffold (Vite + React + Tailwind, mobile-first)
 - **P2+**: Score entry, player management, leaderboards
 
 See `PLAN.md` for the full roadmap.

@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.8.0
+
+- Home page with game cards (Phase 1.3)
+- `GameCard` component: game name, description, type badge (Dice/Card/List with distinct colours)
+- Game cards link to `/game/:id` detail page
+- Responsive grid layout: 1 column on mobile, 2 on `sm:`, 3 on `lg:`
+- 6 new tests: game rendering, descriptions, type badges, link targets, badge colours (125 total across 8 suites)
+
+## 0.7.0
+
+- App shell and routing (Phase 1.2)
+- `AppShell` layout component: responsive bottom tab bar on mobile, top bar on md+
+- `TabBar` with 4 tabs (Home, New Game, Score Sheet, Leaderboard) using inline SVG icons and active state highlighting
+- HashRouter with routes: `/`, `/new`, `/score`, `/leaderboard`, `/game/:id`
+- Placeholder page components for all routes
+- React component testing setup: @testing-library/react + happy-dom
+- 10 new tests: tab rendering, navigation, active state, route matching (119 total across 7 suites)
+
+## 0.6.0
+
+- Web app scaffold (Phase 1.1)
+- Vite + React + Tailwind CSS dev stack
+- TOML-to-TypeScript build script (`scripts/generate-definitions.ts`)
+- Generated game definitions module with typed exports
+- Web-specific tsconfig, entry point, CSS imports
+- npm scripts: `generate`, `dev:web`, `build:web`, `preview:web`
+- 6 new tests for the generate script (109 total across 6 suites)
+
 ## 0.5.0
 
 - Improved validation error messages: union/enum fields now show expected values (e.g. `Expected "immediate" or "final-round"`) instead of generic "Invalid input"

@@ -71,36 +71,36 @@ Goal: Build the web app shell with navigation, game list, game detail pages, and
 
 ### Phase 1.1: Web stack setup + TOML build script
 
-- [ ] Add dependencies: `react`, `react-dom`, `react-router-dom`
-- [ ] Add dev dependencies: `@types/react`, `@types/react-dom`, `@vitejs/plugin-react`, `tailwindcss`, `@tailwindcss/vite`
-- [ ] Create `vite.config.ts` with React plugin, Tailwind plugin, output to `dist-web/`
-- [ ] Create `tsconfig.web.json` extending base config (add `jsx: react-jsx`, `module: ESNext`)
-- [ ] Create `index.html` entry point and `src/app/main.tsx` (React root)
-- [ ] Create `src/app/app.css` with Tailwind imports
-- [ ] Create `scripts/generate-definitions.ts`: reads TOMLs, validates, writes typed exports
-- [ ] Add `src/definitions/` to `.gitignore`
-- [ ] Add npm scripts: `generate`, `dev:web`, `build:web`, `preview:web`
-- [ ] Verify: dev server starts, hello-world page renders, hot reload works
-- [ ] Tests: generate script produces valid TypeScript with all 4 games
+- [x] Add dependencies: `react`, `react-dom`, `react-router-dom`
+- [x] Add dev dependencies: `@types/react`, `@types/react-dom`, `@vitejs/plugin-react`, `tailwindcss`, `@tailwindcss/vite`
+- [x] Create `vite.config.ts` with React plugin, Tailwind plugin, output to `dist-web/`
+- [x] Create `tsconfig.web.json` extending base config (add `jsx: react-jsx`, `module: ESNext`)
+- [x] Create `index.html` entry point and `src/app/main.tsx` (React root)
+- [x] Create `src/app/app.css` with Tailwind imports
+- [x] Create `scripts/generate-definitions.ts`: reads TOMLs, validates, writes typed exports
+- [x] Add `src/definitions/` to `.gitignore`
+- [x] Add npm scripts: `generate`, `dev:web`, `build:web`, `preview:web`
+- [x] Verify: dev server starts, hello-world page renders, hot reload works
+- [x] Tests: generate script produces valid TypeScript with all 4 games
 
 ### Phase 1.2: App shell and routing
 
-- [ ] Create `src/app/layout/AppShell.tsx` — outer layout with content area + tab bar
-- [ ] Create `src/app/layout/TabBar.tsx` — bottom nav bar with 4 tabs (Home, New Game, Score Sheet, Leaderboard)
-- [ ] Simple SVG icons (inline, no icon library), active tab highlighted
-- [ ] Responsive: bottom bar on mobile, top bar on `md:` and above
-- [ ] Set up `HashRouter` with routes: `/`, `/new`, `/score`, `/leaderboard`, `/game/:id`
-- [ ] Each route wrapped in `AppShell` layout
-- [ ] Tests: tab bar renders, navigation works, active state matches route
+- [x] Create `src/app/layout/AppShell.tsx` — outer layout with content area + tab bar
+- [x] Create `src/app/layout/TabBar.tsx` — bottom nav bar with 4 tabs (Home, New Game, Score Sheet, Leaderboard)
+- [x] Simple SVG icons (inline, no icon library), active tab highlighted
+- [x] Responsive: bottom bar on mobile, top bar on `md:` and above
+- [x] Set up `HashRouter` with routes: `/`, `/new`, `/score`, `/leaderboard`, `/game/:id`
+- [x] Each route wrapped in `AppShell` layout
+- [x] Tests: tab bar renders, navigation works, active state matches route
 
 ### Phase 1.3: Home page with game cards
 
-- [ ] Create `src/app/pages/HomePage.tsx`
-- [ ] Create `src/app/components/GameCard.tsx` — name, description, type badge (Dice/Card/List with distinct colours)
-- [ ] Cards link to `/game/:id` (game detail page)
-- [ ] Game list sourced from generated `gameList`
-- [ ] Responsive grid: 1 column on mobile, 2 on `sm:`, 3 on `lg:`
-- [ ] Tests: renders all 4 games, displays names, descriptions, and type badges
+- [x] Create `src/app/pages/HomePage.tsx`
+- [x] Create `src/app/components/GameCard.tsx` — name, description, type badge (Dice/Card/List with distinct colours)
+- [x] Cards link to `/game/:id` (game detail page)
+- [x] Game list sourced from generated `gameList`
+- [x] Responsive grid: 1 column on mobile, 2 on `sm:`, 3 on `lg:`
+- [x] Tests: renders all 4 games, displays names, descriptions, and type badges
 
 ### Phase 1.4: Game detail page
 

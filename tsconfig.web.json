@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true
+  },
+  "include": [
+    "src/app/**/*.ts",
+    "src/app/**/*.tsx",
+    "src/types/**/*.ts",
+    "src/schemas/**/*.ts",
+    "src/scoring/**/*.ts",
+    "src/definitions/**/*.ts"
+  ],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}
