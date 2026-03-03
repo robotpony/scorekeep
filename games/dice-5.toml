@@ -52,7 +52,7 @@ turn_flow = [
   "Set aside at least one scoring die",
   "Re-roll remaining dice or bank points",
   "No scoring dice = lose all unbanked points",
-  "All 5 scoring = pick up all 5, keep rolling",
+  "All 5 scoring = pick up all 5, keep rolling (optionally)",
 ]
 
 key_rules = [
