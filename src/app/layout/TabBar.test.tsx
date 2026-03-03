@@ -111,6 +111,6 @@ describe('AppShell', () => {
 
   it('renders game detail page for /game/:id', () => {
     renderWithRouter('/game/dice-5');
-    expect(screen.getByText('Game: dice-5')).toBeInTheDocument();
+    expect(screen.getByText('Dice 5')).toBeInTheDocument();
   });
 });

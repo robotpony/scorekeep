@@ -104,13 +104,13 @@ Goal: Build the web app shell with navigation, game list, game detail pages, and
 
 ### Phase 1.4: Game detail page
 
-- [ ] Create `src/app/pages/GameDetailPage.tsx` at `/game/:id`
-- [ ] Display game name, description, player count, equipment
-- [ ] Display rules: summary, turn flow (numbered), key rules (bulleted)
-- [ ] Display scoring reference table (reuse `src/scoring/` logic, render as HTML table)
-- [ ] "Play this game" button linking to `/new?game=<id>` (non-functional in P1)
-- [ ] Handle invalid game ID with redirect or error state
-- [ ] Tests: renders game info, scoring table adapts to game type, 404 for unknown IDs
+- [x] Create `src/app/pages/GameDetailPage.tsx` at `/game/:id`
+- [x] Display game name, description, player count, equipment
+- [x] Display rules: summary, turn flow (numbered), key rules (bulleted)
+- [x] Display scoring reference table (reuse `src/scoring/` logic, render as HTML table)
+- [x] "Play this game" button linking to `/new?game=<id>` (non-functional in P1)
+- [x] Handle invalid game ID with redirect or error state
+- [x] Tests: renders game info, scoring table adapts to game type, 404 for unknown IDs
 
 ### Phase 1.5: Stub pages with designed empty states
 

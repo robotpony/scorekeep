@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.9.0
+
+- Game detail page (Phase 1.4)
+- `GameDetailPage` at `/game/:id`: game name, description, player count, equipment, rules (summary, turn flow, key rules), scoring reference table
+- `ScoringTable` component: reuses shared `generateScoringReference` logic, renders sections as HTML tables with headers and notes
+- "Play this game" button linking to `/new?game=<id>` (non-functional stub for P1)
+- Error state for unknown game IDs with back-to-home link
+- Scoring adapts per game type: cumulative dice combos, category sections (upper/lower), card values/modifiers, list note
+- 11 new tests: game info display, equipment per type, rules rendering, scoring per game type, play link, unknown ID error (136 total across 9 suites)
+
 ## 0.8.0
 
 - Home page with game cards (Phase 1.3)
