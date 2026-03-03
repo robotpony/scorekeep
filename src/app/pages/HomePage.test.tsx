@@ -56,12 +56,12 @@ describe('HomePage', () => {
   it('applies distinct badge colours per type', () => {
     renderHomePage();
     const diceBadge = screen.getAllByText('Dice')[0];
-    expect(diceBadge.className).toContain('bg-blue-100');
+    expect(diceBadge.className).toContain('bg-badge-dice-bg');
 
     const cardBadge = screen.getByText('Card');
-    expect(cardBadge.className).toContain('bg-green-100');
+    expect(cardBadge.className).toContain('bg-badge-card-bg');
 
     const listBadge = screen.getByText('List');
-    expect(listBadge.className).toContain('bg-amber-100');
+    expect(listBadge.className).toContain('bg-badge-list-bg');
   });
 });

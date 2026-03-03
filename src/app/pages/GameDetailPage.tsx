@@ -22,11 +22,11 @@ export function GameDetailPage() {
   if (!def) {
     return (
       <div className="p-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Game not found</h1>
-        <p className="mt-1 text-gray-600 dark:text-gray-400">
+        <h1 className="text-2xl font-bold text-heading">Game not found</h1>
+        <p className="mt-1 text-muted">
           No game with ID &ldquo;{id}&rdquo; exists.
         </p>
-        <Link to="/" className="mt-3 inline-block text-indigo-600 hover:underline dark:text-indigo-400">
+        <Link to="/" className="mt-3 inline-block text-accent-text hover:underline">
           Back to games
         </Link>
       </div>
@@ -38,12 +38,12 @@ export function GameDetailPage() {
 
   return (
     <div className="mx-auto max-w-2xl p-4">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{name}</h1>
+      <h1 className="text-2xl font-bold text-heading">{name}</h1>
       {description && (
-        <p className="mt-1 text-gray-600 dark:text-gray-400">{description}</p>
+        <p className="mt-1 text-muted">{description}</p>
       )}
 
-      <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-700 dark:text-gray-300">
+      <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-body">
         <div>
           <dt className="inline font-medium">Players:</dt>{' '}
           <dd className="inline">{def.players.min}–{def.players.max}</dd>
@@ -58,13 +58,13 @@ export function GameDetailPage() {
 
       {'rules' in def && def.rules && (
         <section className="mt-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Rules</h2>
-          <p className="mt-1 text-sm text-gray-700 dark:text-gray-300">{def.rules.summary}</p>
+          <h2 className="text-lg font-semibold text-heading">Rules</h2>
+          <p className="mt-1 text-sm text-body">{def.rules.summary}</p>
 
           {def.rules.turn_flow && (
             <>
-              <h3 className="mt-3 text-sm font-semibold text-gray-700 dark:text-gray-300">Turn flow</h3>
-              <ol className="mt-1 list-inside list-decimal space-y-0.5 text-sm text-gray-700 dark:text-gray-300">
+              <h3 className="mt-3 text-sm font-semibold text-body">Turn flow</h3>
+              <ol className="mt-1 list-inside list-decimal space-y-0.5 text-sm text-body">
                 {def.rules.turn_flow.map((step, i) => (
                   <li key={i}>{step}</li>
                 ))}
@@ -74,8 +74,8 @@ export function GameDetailPage() {
 
           {def.rules.key_rules && (
             <>
-              <h3 className="mt-3 text-sm font-semibold text-gray-700 dark:text-gray-300">Key rules</h3>
-              <ul className="mt-1 list-inside list-disc space-y-0.5 text-sm text-gray-700 dark:text-gray-300">
+              <h3 className="mt-3 text-sm font-semibold text-body">Key rules</h3>
+              <ul className="mt-1 list-inside list-disc space-y-0.5 text-sm text-body">
                 {def.rules.key_rules.map((rule, i) => (
                   <li key={i}>{rule}</li>
                 ))}
@@ -86,7 +86,7 @@ export function GameDetailPage() {
       )}
 
       <section className="mt-6">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Scoring</h2>
+        <h2 className="text-lg font-semibold text-heading">Scoring</h2>
         <div className="mt-2">
           <ScoringTable game={def} />
         </div>
@@ -95,7 +95,7 @@ export function GameDetailPage() {
       <div className="mt-6">
         <Link
           to={`/new?game=${def.game.id}`}
-          className="inline-block rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          className="inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
         >
           Play this game
         </Link>

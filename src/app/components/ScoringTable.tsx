@@ -9,29 +9,29 @@ export function ScoringTable({ game }: { game: GameDefinition }) {
       {ref.sections.map((section, i) => (
         <div key={i}>
           {section.title && (
-            <h3 className="mb-1 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            <h3 className="mb-1 text-sm font-semibold text-body">
               {section.title}
             </h3>
           )}
           {section.entries.length > 0 && (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="py-1.5 pr-4 text-left font-medium text-gray-600 dark:text-gray-400">
+                <tr className="border-b border-edge">
+                  <th className="py-1.5 pr-4 text-left font-medium text-muted">
                     Name
                   </th>
-                  <th className="py-1.5 text-right font-medium text-gray-600 dark:text-gray-400">
+                  <th className="py-1.5 text-right font-medium text-muted">
                     Score
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {section.entries.map((entry, j) => (
-                  <tr key={j} className="border-b border-gray-100 dark:border-gray-800">
-                    <td className="py-1.5 pr-4 text-gray-900 dark:text-gray-100">
+                  <tr key={j} className="border-b border-edge-subtle">
+                    <td className="py-1.5 pr-4 text-heading">
                       {entry.label}
                     </td>
-                    <td className="py-1.5 text-right text-gray-700 dark:text-gray-300">
+                    <td className="py-1.5 text-right text-body">
                       {entry.value}
                     </td>
                   </tr>
@@ -40,7 +40,7 @@ export function ScoringTable({ game }: { game: GameDefinition }) {
             </table>
           )}
           {section.note && (
-            <p className="mt-1 text-sm italic text-gray-500 dark:text-gray-400">{section.note}</p>
+            <p className="mt-1 text-sm italic text-faint">{section.note}</p>
           )}
         </div>
       ))}

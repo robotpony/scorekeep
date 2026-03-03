@@ -122,7 +122,7 @@ npm run dev                     # Run CLI via tsx (dev mode)
 npm run dev -- list             # Run a specific command
 npm run dev -- info dice-5      # Show game info
 npm run build                   # Compile TypeScript to dist/
-npm test                        # Run all tests (146 across 10 suites)
+npm test                        # Run all tests (148 across 11 suites)
 npm run test:watch              # Run tests in watch mode
 npm run lint                    # Type-check without emitting
 ```
@@ -143,7 +143,7 @@ Adding a new game means adding a TOML file. See `ARCHITECTURE.md` for schema det
 ## Phases
 
 - **P0 (complete)**: CLI tool for parsing, validating, and rendering game definitions
-- **P1 (in progress)**: Web app scaffold (Vite + React + Tailwind, mobile-first)
+- **P1 (complete)**: Web app scaffold (Vite + React + Tailwind, mobile-first, semantic colour palette, error boundary)
 - **P2+**: Score entry, player management, leaderboards
 
 See `PLAN.md` for the full roadmap.

@@ -45,31 +45,31 @@ describe('TabBar', () => {
     renderWithRouter('/');
     const homeLinks = screen.getAllByText('Home').map((el) => el.closest('a')!);
     // At least one should have the active class
-    expect(homeLinks.some((link) => link.className.includes('text-indigo-600'))).toBe(true);
+    expect(homeLinks.some((link) => link.className.includes('text-accent-text'))).toBe(true);
   });
 
   it('highlights New Game tab on /new route', () => {
     renderWithRouter('/new');
     const links = screen.getAllByText('New Game').map((el) => el.closest('a')!);
-    expect(links.some((link) => link.className.includes('text-indigo-600'))).toBe(true);
+    expect(links.some((link) => link.className.includes('text-accent-text'))).toBe(true);
   });
 
   it('highlights Score Sheet tab on /score route', () => {
     renderWithRouter('/score');
     const links = screen.getAllByText('Score Sheet').map((el) => el.closest('a')!);
-    expect(links.some((link) => link.className.includes('text-indigo-600'))).toBe(true);
+    expect(links.some((link) => link.className.includes('text-accent-text'))).toBe(true);
   });
 
   it('highlights Leaderboard tab on /leaderboard route', () => {
     renderWithRouter('/leaderboard');
     const links = screen.getAllByText('Leaderboard').map((el) => el.closest('a')!);
-    expect(links.some((link) => link.className.includes('text-indigo-600'))).toBe(true);
+    expect(links.some((link) => link.className.includes('text-accent-text'))).toBe(true);
   });
 
   it('does not highlight Home tab on other routes', () => {
     renderWithRouter('/new');
     const homeLinks = screen.getAllByText('Home').map((el) => el.closest('a')!);
-    expect(homeLinks.every((link) => !link.className.includes('text-indigo-600'))).toBe(true);
+    expect(homeLinks.every((link) => !link.className.includes('text-accent-text'))).toBe(true);
   });
 
   it('navigates between tabs on click', async () => {

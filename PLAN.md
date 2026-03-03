@@ -121,13 +121,13 @@ Goal: Build the web app shell with navigation, game list, game detail pages, and
 
 ### Phase 1.6: Polish
 
-- [ ] Define colour palette in Tailwind config (neutral base, accent colour, type badge colours)
-- [ ] Dark mode via `prefers-color-scheme` with Tailwind `dark:` classes
-- [ ] Error boundary at app root with fallback UI
-- [ ] Accessible: semantic HTML (`nav`, `main`), focus-visible states, ARIA labels on tab bar
-- [ ] Responsive verification at 375px, 768px, 1024px
-- [ ] All tests pass (CLI + web)
-- [ ] Update README with web section, bump version
+- [x] Define colour palette in Tailwind config (neutral base, accent colour, type badge colours)
+- [x] Dark mode via `prefers-color-scheme` with Tailwind `dark:` classes
+- [x] Error boundary at app root with fallback UI
+- [x] Accessible: semantic HTML (`nav`, `main`), focus-visible states, ARIA labels on tab bar
+- [x] Responsive verification at 375px, 768px, 1024px
+- [x] All tests pass (CLI + web)
+- [x] Update README with web section, bump version
 
 ---
 

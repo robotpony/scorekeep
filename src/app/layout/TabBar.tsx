@@ -60,8 +60,8 @@ function TabBarLink({ to, label, icon }: Tab) {
       className={({ isActive }) =>
         `flex flex-col items-center gap-0.5 px-3 py-2 text-xs transition-colors ${
           isActive
-            ? 'text-indigo-600 dark:text-indigo-400'
-            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+            ? 'text-accent-text'
+            : 'text-faint hover:text-body'
         }`
       }
     >
@@ -73,7 +73,7 @@ function TabBarLink({ to, label, icon }: Tab) {
 
 export function TabBar() {
   return (
-    <nav aria-label="Main navigation" className="flex justify-around border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900 md:border-t-0 md:border-b md:justify-start md:gap-1 md:px-4">
+    <nav aria-label="Main navigation" className="flex justify-around border-t border-edge bg-surface md:border-t-0 md:border-b md:justify-start md:gap-1 md:px-4">
       {tabs.map((tab) => (
         <TabBarLink key={tab.to} {...tab} />
       ))}

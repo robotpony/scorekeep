@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.11.0
+
+- Polish and accessibility (Phase 1.6, P1 complete)
+- Semantic colour palette via Tailwind v4 `@theme`: surfaces (page, surface), text hierarchy (heading, body, muted, faint), borders (edge, edge-subtle), accent, icons, and badge colours for all game types
+- Dark mode via `prefers-color-scheme` media query overrides on all semantic tokens
+- All components refactored from raw Tailwind colour classes to semantic tokens (no more `dark:` colour overrides in components)
+- Shared badge config extracted from duplicated lookups in GameCard and NewGamePage
+- Error boundary at app root with fallback UI and reload button
+- Global `focus-visible` outline style for keyboard navigation
+- Semantic HTML throughout: `nav` with `aria-label`, `main`, heading hierarchy
+- 2 new tests for ErrorBoundary (148 total across 11 suites)
+
 ## 0.10.0
 
 - Stub pages with designed empty states (Phase 1.5)

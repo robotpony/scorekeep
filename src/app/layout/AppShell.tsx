@@ -3,7 +3,7 @@ import { TabBar } from './TabBar.js';
 
 export function AppShell() {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50 dark:bg-gray-950">
+    <div className="flex min-h-screen flex-col bg-page">
       {/* Top bar on md+ screens */}
       <div className="hidden md:block">
         <TabBar />
