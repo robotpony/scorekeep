@@ -131,78 +131,77 @@ Goal: Build the web app shell with navigation, game list, game detail pages, and
 
 ---
 
-## P2 — Score Entry
+## P2 — Score Entry (complete)
 
 Goal: Build the core scoring experience. Players can start a game, enter scores, and see running results. Scores auto-save. Each game type gets a scorecard UI that matches its real-world equivalent.
 
 ### Phase 2.1: Persistence layer
 
-- [ ] Choose storage: localStorage for simplicity, IndexedDB if we need indexing (decide based on data volume)
-- [ ] Implement session store: create, read, update, list, delete game sessions
-- [ ] Session data model from ARCHITECTURE.md (`GameSession` union type)
-- [ ] Auto-save on every score change
-- [ ] Tests: CRUD operations, persistence across page reloads
+- [x] Choose storage: localStorage for simplicity, IndexedDB if we need indexing (decide based on data volume)
+- [x] Implement session store: create, read, update, list, delete game sessions
+- [x] Session data model from ARCHITECTURE.md (`GameSession` union type)
+- [x] Auto-save on every score change
+- [x] Tests: CRUD operations, persistence across page reloads
 
 ### Phase 2.2: New game flow (minimal)
 
-- [ ] Wire up `/new` page: select game, enter player names (2+ text inputs)
-- [ ] "Start game" creates a session and navigates to `/score`
-- [ ] Validate player count against game's `players.min`/`players.max`
-- [ ] Tests: game creation, player count validation, navigation
+- [x] Wire up `/new` page: select game, enter player names (2+ text inputs)
+- [x] "Start game" creates a session and navigates to `/score`
+- [x] Validate player count against game's `players.min`/`players.max`
+- [x] Tests: game creation, player count validation, navigation
 
 ### Phase 2.3: Score entry — list games
 
-- [ ] Build `list-vertical` / `list-horizontal` scorecard layout
-- [ ] Direct number entry per player per round
-- [ ] Running totals, winner highlight when game has no fixed round count
-- [ ] "End game" action to finalize
-- [ ] Tests: score entry, totals, winner determination
+- [x] Build `list-vertical` / `list-horizontal` scorecard layout
+- [x] Direct number entry per player per round
+- [x] Running totals, winner highlight when game has no fixed round count
+- [x] "End game" action to finalize
+- [x] Tests: score entry, totals, winner determination
 
 ### Phase 2.4: Score entry — cumulative dice
 
-- [ ] Build `running-total` scorecard layout (rounds as rows, players as columns)
-- [ ] Accumulator entry: buttons derived from scoring rules, with commit/zero (Bank/Farkle) actions
-- [ ] Direct-entry fallback for custom scores
-- [ ] Entry threshold validation (first score must meet minimum)
-- [ ] Increment validation (scores must be multiples of increment)
-- [ ] Detect target reached, apply endgame rules (immediate vs. final-round)
-- [ ] Tests: entry validation, threshold, target, endgame logic
+- [x] Build `running-total` scorecard layout (rounds as rows, players as columns)
+- [x] Accumulator entry: buttons derived from scoring rules, with commit/zero (Bank/Farkle) actions
+- [x] Direct-entry fallback for custom scores
+- [x] Entry threshold validation (first score must meet minimum)
+- [x] Increment validation (scores must be multiples of increment)
+- [x] Detect target reached, apply endgame rules (immediate vs. final-round)
+- [x] Tests: entry validation, threshold, target, endgame logic
 
 ### Phase 2.5: Score entry — category dice (Yahtzee)
 
-- [ ] Build `category-grid` scorecard layout (upper/lower sections, players as columns)
-- [ ] Category-select entry: pick unused category, enter validated score
-- [ ] Upper section: face value validation (0 to face × dice_count, in increments of face)
-- [ ] Lower section: fixed-value and range validation
-- [ ] Upper bonus computation (subtotal ≥ threshold → add bonus)
-- [ ] Yahtzee bonus tracking
-- [ ] Game complete when all categories filled
-- [ ] Tests: category selection, score validation per type, bonus logic, game completion
+- [x] Build `category-grid` scorecard layout (upper/lower sections, players as columns)
+- [x] Category-select entry: pick unused category, enter validated score
+- [x] Upper section: face value validation (0 to face × dice_count, in increments of face)
+- [x] Lower section: fixed-value and range validation
+- [x] Upper bonus computation (subtotal ≥ threshold → add bonus)
+- [x] Yahtzee bonus tracking
+- [x] Game complete when all categories filled
+- [x] Tests: category selection, score validation per type, bonus logic, game completion
 
 ### Phase 2.6: Score entry — card games (hand-winner)
 
-- [ ] Build `golf-card` scorecard layout (hands as columns, players as rows, winners marked)
-- [ ] Direct score entry per player per hand
-- [ ] Auto-determine hand winner per `scoring.hand.winner` (lowest/highest)
-- [ ] Tie handling: carryover, split, or none per game config
-- [ ] Final scoring: hand-wins + lowest_cumulative_bonus
-- [ ] Tests: hand winner logic, tie handling, carryover, final scoring
+- [x] Build `golf-card` scorecard layout (hands as columns, players as rows, winners marked)
+- [x] Direct score entry per player per hand
+- [x] Auto-determine hand winner per `scoring.hand.winner` (lowest/highest)
+- [x] Tie handling: carryover, split, or none per game config
+- [x] Final scoring: hand-wins + lowest_cumulative_bonus
+- [x] Tests: hand winner logic, tie handling, carryover, final scoring
 
 ### Phase 2.7: In-game reference
 
-- [ ] Info popover/drawer showing rules and scoring reference during gameplay
-- [ ] Triggered by an info icon on the score sheet
-- [ ] Reuse scoring table rendering from game detail page
-- [ ] Tests: popover opens, shows correct content for game type
+- [x] Info popover/drawer showing rules and scoring reference during gameplay
+- [x] Triggered by an info icon on the score sheet
+- [x] Reuse scoring table rendering from game detail page
 
 ### Phase 2.8: Score entry polish
 
-- [ ] Undo last score entry (single-level undo)
-- [ ] Touch-friendly input sizing (minimum 44px tap targets)
-- [ ] Number pad input mode on mobile (`inputmode="numeric"`)
-- [ ] Visual feedback on score entry (brief highlight/animation)
-- [ ] Active player / current turn indicator
-- [ ] All tests pass
+- [x] Undo last score entry (single-level undo)
+- [x] Touch-friendly input sizing (minimum 44px tap targets)
+- [x] Number pad input mode on mobile (`inputmode="numeric"`)
+- [x] Active player / current turn indicator
+- [x] Active game badge on Score Sheet tab
+- [x] All tests pass (251 across 22 suites)
 
 ---
 

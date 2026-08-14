@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.12.0
+
+- Score entry for all four game types (P2 complete)
+- **Persistence layer**: localStorage-backed session store with auto-save on every score change
+- **New game flow**: game selector (pre-selectable via URL), dynamic player name inputs with min/max validation, creates session and navigates to score sheet
+- **List scorecard**: direct number entry per player per round, running totals, winner highlight
+- **Cumulative dice scorecard**: quick-add buttons derived from scoring rules, Bank/Farkle actions, entry threshold and increment validation, immediate and final-round endgame detection
+- **Category dice scorecard**: upper/lower section grid, per-category score validation (face value, fixed, range), upper bonus computation (≥63 → +35), Yahtzee bonus tracking, game complete when all categories filled
+- **Hand-winner scorecard**: per-hand score entry, auto-determine hand winner (lowest/highest), carryover tie handling, lowest cumulative bonus in final scoring
+- **In-game reference**: slide-up InfoDrawer with rules summary and scoring table, triggered from score sheet header
+- **Undo**: single-level undo via state snapshot in session reducer
+- **Active game badge**: dot indicator on Score Sheet tab when a session is active
+- **Touch-friendly**: 44px minimum tap targets (`min-h-11`), `inputmode="numeric"` on all score inputs, active player indicator
+- **Session context**: React Context + useReducer with actions for create, record score, undo, end game, load, clear
+- **Score validation**: per-type validators shared between components and tests
+- **Endgame detection**: target reached (cumulative), all categories filled (category), rounds exhausted (hand-winner)
+- **Final scoring**: running totals, upper bonus, Yahtzee bonus, hand-win counts with carryover and lowest cumulative bonus
+- 103 new tests (251 total across 22 suites)
+
 ## 0.11.0
 
 - Polish and accessibility (Phase 1.6, P1 complete)

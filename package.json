@@ -1,6 +1,6 @@
 {
   "name": "scorekeep",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "A score-tracking tool for card and dice games.",
   "type": "module",
   "bin": {

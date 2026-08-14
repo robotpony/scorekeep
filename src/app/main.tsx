@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ErrorBoundary } from './components/ErrorBoundary.js';
+import { SessionProvider } from '../session/context.js';
 import { AppShell } from './layout/AppShell.js';
 import { HomePage } from './pages/HomePage.js';
 import { NewGamePage } from './pages/NewGamePage.js';
@@ -12,17 +13,19 @@ import './app.css';
 function App() {
   return (
     <ErrorBoundary>
-      <HashRouter>
-        <Routes>
-          <Route element={<AppShell />}>
-            <Route index element={<HomePage />} />
-            <Route path="new" element={<NewGamePage />} />
-            <Route path="score" element={<ScoreSheetPage />} />
-            <Route path="leaderboard" element={<LeaderboardPage />} />
-            <Route path="game/:id" element={<GameDetailPage />} />
-          </Route>
-        </Routes>
-      </HashRouter>
+      <SessionProvider>
+        <HashRouter>
+          <Routes>
+            <Route element={<AppShell />}>
+              <Route index element={<HomePage />} />
+              <Route path="new" element={<NewGamePage />} />
+              <Route path="score" element={<ScoreSheetPage />} />
+              <Route path="leaderboard" element={<LeaderboardPage />} />
+              <Route path="game/:id" element={<GameDetailPage />} />
+            </Route>
+          </Routes>
+        </HashRouter>
+      </SessionProvider>
     </ErrorBoundary>
   );
 }

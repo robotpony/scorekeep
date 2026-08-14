@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { SessionProvider } from '../../session/context.js';
 import { AppShell } from './AppShell.js';
 import { HomePage } from '../pages/HomePage.js';
 import { NewGamePage } from '../pages/NewGamePage.js';
@@ -9,19 +10,25 @@ import { ScoreSheetPage } from '../pages/ScoreSheetPage.js';
 import { LeaderboardPage } from '../pages/LeaderboardPage.js';
 import { GameDetailPage } from '../pages/GameDetailPage.js';
 
+beforeEach(() => {
+  localStorage.clear();
+});
+
 function renderWithRouter(initialRoute = '/') {
   return render(
-    <MemoryRouter initialEntries={[initialRoute]}>
-      <Routes>
-        <Route element={<AppShell />}>
-          <Route index element={<HomePage />} />
-          <Route path="new" element={<NewGamePage />} />
-          <Route path="score" element={<ScoreSheetPage />} />
-          <Route path="leaderboard" element={<LeaderboardPage />} />
-          <Route path="game/:id" element={<GameDetailPage />} />
-        </Route>
-      </Routes>
-    </MemoryRouter>,
+    <SessionProvider>
+      <MemoryRouter initialEntries={[initialRoute]}>
+        <Routes>
+          <Route element={<AppShell />}>
+            <Route index element={<HomePage />} />
+            <Route path="new" element={<NewGamePage />} />
+            <Route path="score" element={<ScoreSheetPage />} />
+            <Route path="leaderboard" element={<LeaderboardPage />} />
+            <Route path="game/:id" element={<GameDetailPage />} />
+          </Route>
+        </Routes>
+      </MemoryRouter>
+    </SessionProvider>,
   );
 }
 

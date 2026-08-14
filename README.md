@@ -114,6 +114,19 @@ Routes: Home (`/`), New Game (`/new`), Score Sheet (`/score`), Leaderboard (`/le
 
 The home page displays all available games as cards with type badges (Dice, Card, List). Cards link to game detail pages. Responsive layout: bottom tab bar on mobile, top bar on medium screens and above.
 
+### Score Entry
+
+Start a game from the New Game page or a game detail page's "Play this game" button. Enter player names (validated against game's min/max), then score round by round on the Score Sheet.
+
+Each game type has a purpose-built scorecard:
+
+- **List games**: Enter scores per player per round. Running totals update automatically.
+- **Cumulative dice** (e.g. Dice 5): Quick-add buttons for common combos, Bank to commit or Farkle for zero. Entry threshold and target detection enforced.
+- **Category dice** (e.g. Yahtzee): Click a category, enter a validated score. Upper bonus auto-computes when subtotal ≥ 63. Yahtzee bonus tracked separately.
+- **Card/hand-winner** (e.g. Golf 4): Enter scores per hand. Hand winner auto-determined. Ties carry over to the next hand.
+
+Scores auto-save to localStorage. The Score Sheet tab shows a badge when a game is active. Tap the info icon during play for a rules and scoring reference drawer. Single-level undo is available for the last score entry.
+
 ## Development
 
 ```bash
@@ -122,7 +135,7 @@ npm run dev                     # Run CLI via tsx (dev mode)
 npm run dev -- list             # Run a specific command
 npm run dev -- info dice-5      # Show game info
 npm run build                   # Compile TypeScript to dist/
-npm test                        # Run all tests (148 across 11 suites)
+npm test                        # Run all tests (251 across 22 suites)
 npm run test:watch              # Run tests in watch mode
 npm run lint                    # Type-check without emitting
 ```
@@ -144,6 +157,7 @@ Adding a new game means adding a TOML file. See `ARCHITECTURE.md` for schema det
 
 - **P0 (complete)**: CLI tool for parsing, validating, and rendering game definitions
 - **P1 (complete)**: Web app scaffold (Vite + React + Tailwind, mobile-first, semantic colour palette, error boundary)
-- **P2+**: Score entry, player management, leaderboards
+- **P2 (complete)**: Score entry for all four game types, session persistence, new game flow, in-game reference
+- **P3+**: Player management, game history, leaderboards
 
 See `PLAN.md` for the full roadmap.

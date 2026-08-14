@@ -1,44 +1,21 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { NewGamePage } from './NewGamePage.js';
+import { SessionProvider } from '../../session/context.js';
 import { ScoreSheetPage } from './ScoreSheetPage.js';
 import { LeaderboardPage } from './LeaderboardPage.js';
 
-describe('NewGamePage', () => {
-  function renderPage() {
-    return render(<MemoryRouter><NewGamePage /></MemoryRouter>);
-  }
-
-  it('renders heading', () => {
-    renderPage();
-    expect(screen.getByRole('heading', { name: 'Start a new game' })).toBeInTheDocument();
-  });
-
-  it('lists all 4 games with names', () => {
-    renderPage();
-    expect(screen.getByText('Dice 5')).toBeInTheDocument();
-    expect(screen.getByText('Yahtzee')).toBeInTheDocument();
-    expect(screen.getByText('Golf 4')).toBeInTheDocument();
-    expect(screen.getByText('Simple Scores')).toBeInTheDocument();
-  });
-
-  it('shows disabled Play buttons', () => {
-    renderPage();
-    const buttons = screen.getAllByRole('button', { name: 'Play' });
-    expect(buttons).toHaveLength(4);
-    buttons.forEach((btn) => expect(btn).toBeDisabled());
-  });
-
-  it('shows "Player setup coming soon" note', () => {
-    renderPage();
-    expect(screen.getByText('Player setup coming soon.')).toBeInTheDocument();
-  });
+beforeEach(() => {
+  localStorage.clear();
 });
 
 describe('ScoreSheetPage', () => {
   function renderPage() {
-    return render(<MemoryRouter><ScoreSheetPage /></MemoryRouter>);
+    return render(
+      <SessionProvider>
+        <MemoryRouter><ScoreSheetPage /></MemoryRouter>
+      </SessionProvider>,
+    );
   }
 
   it('renders empty state heading', () => {
